@@ -13,8 +13,14 @@ export class AuthService {
   signupUser(email: string, password: string){
     firebase.auth().createUserWithEmailAndPassword(email, password)
       .then(response => {
-        this.signinUser(email, password);    
+        firebase.auth().signInWithEmailAndPassword(email, password).catch(error => {
+              console.log(error),
+              alert(error)
+            })
         this.sendVerificationEmail();
+        alert("A verification email has been sent to " + email + " please follow the link provided in this email to verify your account.")
+        this.logout;
+        this.router.navigate(['/']);
       }
       )
       .catch(
@@ -30,17 +36,23 @@ export class AuthService {
     firebase.auth().signInWithEmailAndPassword(email, password)
         .then(
             response => {
-                this.router.navigate(['/']);
-                firebase.auth().currentUser.getIdToken()
-                    .then(
-                        (token: string) => this.token = token
-                    )
+                if (!firebase.auth().currentUser.emailVerified) {
+                    alert("Your account is not yet activated, a new verification email has been sent to " + email);
+                    this.sendVerificationEmail();
+                    this.logout();
+                } else {
+                    this.router.navigate(['/']);
+                    firebase.auth().currentUser.getIdToken()
+                        .then(
+                            (token: string) => this.token = token
+                        )
+                }
             }
         )
         .catch(
             error => {
-              console.log(error),
-              alert(error)
+                console.log(error),
+                    alert(error)
             }
         );
   }
@@ -71,10 +83,7 @@ export class AuthService {
       if(user.emailVerified){
         return true;
       }
-      else{
-        alert("Please verify your email");
-        this.logout();
-      }
+
     }else{
       return false;
     }
