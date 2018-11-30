@@ -13,23 +13,36 @@ export class RecipeService {
   recipesChanged = new Subject<Recipe[]>();
   
   private recipes: Recipe[]=[
-    new Recipe('A test Recipe', 
-    'This is a test',
-    'https://get.pxhere.com/photo/dish-meal-food-produce-recipe-fish-breakfast-meat-pork-cuisine-steak-pork-chop-power-dishes-grilling-fried-food-604134.jpg',
-    [
-      new Ingredient('Meat',1),
-      new Ingredient('French Fries',2)
-      ]),
-    new Recipe('Bobs Big Burger', 'This is a test',
-    'https://get.pxhere.com/photo/dish-meal-food-produce-recipe-fish-breakfast-meat-pork-cuisine-steak-pork-chop-power-dishes-grilling-fried-food-604134.jpg',
-    [
-      new Ingredient('Buns',2),
-      new Ingredient('Patty',3) 
-      ])
-  ];
+   // new Recipe ('Initializer',0,'We do not have any products yet, please check back soon.',0),
+    ];
+  private recipeN: Recipe;
+  private recipeT: Recipe = new Recipe ('Initializer',0,'Used to initilize array to avoid error NUll',0);
+  IDs: string[];
   
-  constructor(private slService: ShoppingListService, private http: HttpClient) { }
+  makeRecipes(){
+     this.getRequest()
+    .subscribe((data)=>{
+      if (data){
+      this.recipes=[];
+      this.IDs=[];
+      for(var i in data){
+        //console.log(new Recipe(data[i].name,data[i].price,data[i].details,data[i].amount));
+        this.recipes.push(new Recipe(data[i].name,data[i].price,data[i].details,data[i].amount));
+        this.recipesChanged.next(this.recipes);
+        console.log(data[i]._id);
+        this.IDs.push(JSON.stringify(data[i]._id));
+        //console.log(this.recipes);
+      }
+    }
+    });
+    //console.log(this.recipes);
+    console.log("Products imported from database.")
+    }
   
+  
+  constructor(private slService: ShoppingListService, private http: HttpClient) {}
+  
+
   httpOptions = {
   headers: new HttpHeaders({
     'Content-Type':  'application/json',
@@ -52,19 +65,25 @@ export class RecipeService {
       return this.http.post('/products/create',passObject,this.httpOptions);
   }
   
-  deleteRequest (test) {
-    test = test.substring(1,(test.length -1));
-
+  deleteRequest (index) {
+    
+    index = index.substring(1,(index.length -1));
     let url = '/products/delete/'; // DELETE api/heroes/42
-    url = url.concat(test);
+    url = url.concat(index);
     alert(url);
+    this.IDs.splice(index,1);
     return this.http.delete(url, this.httpOptions);
   }
   
   //http requests end
   
   getRecipes(){
-    return this.recipes.slice();
+    //this.recipes.push(this.recipeT);
+    this.makeRecipes();
+    
+    //console.log(this.recipeT)
+    console.log(this.recipes)
+    return this.recipes;
     
   }
   
@@ -88,6 +107,7 @@ export class RecipeService {
   }
   
   deleteRecipe(index: number){
+    this.deleteRequest(this.IDs[index]).subscribe(data=>console.log(data));
     this.recipes.splice(index,1);
     this.recipesChanged.next(this.recipes.slice());
   }

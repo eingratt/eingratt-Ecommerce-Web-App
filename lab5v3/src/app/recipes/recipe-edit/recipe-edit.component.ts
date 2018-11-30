@@ -50,19 +50,19 @@ export class RecipeEditComponent implements OnInit {
     if (this.editMode){
       const recipe = this.recipeService.getRecipe(this.id);
       recipeName = recipe.name;
-      recipeImagePath = recipe.imagePath;
+     // recipeImagePath = recipe.imagePath;
       recipeDescription = recipe.description;
-      if (recipe['ingredients']){
-        for (let ingredient of recipe.ingredients){
-          recipeIngredients.push(new FormGroup({
-            'name': new FormControl(ingredient.name, Validators.required),
-            'amount': new FormControl(ingredient.amount, [Validators.required,
-            Validators.pattern(/^[1-9]+[0-9]*$/)
-            ])
-          })
-          );
-        }
-      }
+    //  if (recipe['ingredients']){
+      //  for (let ingredient of recipe.ingredients){
+      //    recipeIngredients.push(new FormGroup({
+      //      'name': new FormControl(ingredient.name, Validators.required),
+      //      'amount': new FormControl(ingredient.amount, [Validators.required,
+      //      Validators.pattern(/^[1-9]+[0-9]*$/)
+      //      ])
+      //    })
+      //    );
+      //  }
+      //}
       
       
     }

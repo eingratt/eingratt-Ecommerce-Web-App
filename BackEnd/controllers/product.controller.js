@@ -10,7 +10,7 @@ exports.product_create = function (req, res) {
          {
             name: req.body.name,
             price: req.body.price,
-            taxRate:req.body.taxRate,
+            details:req.body.details,
             amount: req.body.amount
         }
     );
