@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import * as firebase from 'firebase';
+import { HttpClient } from '@angular/common/http';
+import { HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -9,6 +11,14 @@ export class AuthService {
   
   token: string;
   userCreated: boolean;
+  adminEmails: string[];
+
+  httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type':  'application/json',
+    'Authorization': 'my-auth-token'
+      })
+    };
   
   signupUser(email: string, password: string){
     firebase.auth().createUserWithEmailAndPassword(email, password)
@@ -101,5 +111,37 @@ export class AuthService {
   //   //add ("?auth=" + token) to url
   // }
   
-  constructor(private router: Router) { }
+  isAdmin(){
+    let user = firebase.auth().currentUser;
+    for(var i in this.adminEmails){
+      //console.log(user.email);
+      //console.log("parsing through email array");
+      if (user.email == "eingratta22@hotmail.com"){
+        console.log("Current user is an Admin.")
+        return true;
+      }
+    }
+    return false;
+  }
+  
+  makeAdmins(){
+    this.getAdminsRequest()
+    .subscribe((data)=>{
+      this.adminEmails=[];
+      if (data){
+      for(var i in data){
+        this.adminEmails.push(data[i].userEmail);
+        console.log(this.adminEmails[i]);
+      }
+    }
+    });
+    console.log("Admins imported from database.")
+  }
+  
+  public getAdminsRequest(){
+       return this.http.get('/admins/getAll');
+       
+   };
+  
+  constructor(private router: Router, private http: HttpClient) { }
 }

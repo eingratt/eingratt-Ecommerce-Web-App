@@ -12,6 +12,7 @@ export class SigninComponent implements OnInit {
   constructor(private authService: AuthService) { }
 
   ngOnInit() {
+    //this.authService.logout();
   }
   
   onSignin(form: NgForm){

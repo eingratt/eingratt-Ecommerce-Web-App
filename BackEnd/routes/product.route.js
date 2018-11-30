@@ -20,7 +20,7 @@ router.get('/getOne/:id', product_controller.product_details);
 
 router.get('/getAll', product_controller.product_getAll);
 
-router.put('/updateAmount/:id', product_controller.product_updateAmount);
+router.put('/update/:id', product_controller.product_update);
 
 router.put('/updateTaxRate/:id', product_controller.product_updateTaxRate);
 

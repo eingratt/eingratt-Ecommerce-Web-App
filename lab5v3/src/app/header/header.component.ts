@@ -12,6 +12,7 @@ export class HeaderComponent implements OnInit {
   
 
   ngOnInit() {
+    this.authService.makeAdmins();
   }
   
   onLogout(){

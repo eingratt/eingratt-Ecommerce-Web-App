@@ -12,6 +12,7 @@
             </ng-template>
         </ul>
         <ul class="nav navbar-nav navbar-right">
+            <li><a routerLink="/about">About Us</a></li>
             <ng-template [ngIf]="!authService.isAuthenticated()">
                 <li><a routerLink="/signup">Register</a></li>
                 <li><a routerLink="/signin">Login</a></li>

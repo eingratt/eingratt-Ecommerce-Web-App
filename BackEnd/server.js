@@ -3,7 +3,8 @@ const bodyParser = require('body-parser');
 // initialize our express app
 
 const product = require('./routes/product.route'); // Imports routes for the products
-const review = require('./routes/review.route'); // Imports routes for the products
+const review = require('./routes/review.route'); // Imports routes for the reviews
+const admin = require('./routes/admin.route'); // Imports routes for the admins
 
 
 const app = express();
@@ -21,6 +22,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use('/products', product);
 app.use('/reviews', review);
+app.use('/admins', admin);
 
 
 app.use(express.static('../lab5v3/src/app'));

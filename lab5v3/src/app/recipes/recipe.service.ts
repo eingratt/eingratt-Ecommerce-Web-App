@@ -29,7 +29,7 @@ export class RecipeService {
         //console.log(new Recipe(data[i].name,data[i].price,data[i].details,data[i].amount));
         this.recipes.push(new Recipe(data[i].name,data[i].price,data[i].details,data[i].amount));
         this.recipesChanged.next(this.recipes);
-        console.log(data[i]._id);
+        //console.log(data[i]._id);
         this.IDs.push(JSON.stringify(data[i]._id));
         //console.log(this.recipes);
       }
@@ -55,12 +55,12 @@ export class RecipeService {
        
    };
   
-  public postRequest(name: string){
+  public postRequest(recipe: Recipe){
       let passObject={
-          "name": name,
-          "price": 12,
-          "amount": 100,
-          "taxRate": 0.13,
+          "name": recipe.name,
+          "price": recipe.price,
+          "details": recipe.description,
+          "amount": recipe.amount
       }
       return this.http.post('/products/create',passObject,this.httpOptions);
   }
@@ -75,6 +75,24 @@ export class RecipeService {
     return this.http.delete(url, this.httpOptions);
   }
   
+//  postRequest(recipe:Recipe){
+//    let url = '/products/create';
+//    return this.http.post(this.url, recipe, this.httpOptions)
+//  }
+  
+  putRequest(index,newRecipe: Recipe){
+    index = index.substring(1,(index.length -1));
+    let url = '/products/update/'; // DELETE api/heroes/42
+    url = url.concat(index);
+    let passObject={
+          "name": newRecipe.name,
+          "price": newRecipe.price,
+          "details": newRecipe.description,
+          "amount": newRecipe.amount
+      }
+    return this.http.put(url, passObject, this.httpOptions)
+  }
+  
   //http requests end
   
   getRecipes(){
@@ -82,7 +100,6 @@ export class RecipeService {
     this.makeRecipes();
     
     //console.log(this.recipeT)
-    console.log(this.recipes)
     return this.recipes;
     
   }
@@ -97,11 +114,13 @@ export class RecipeService {
   }
   
   addRecipe(recipe: Recipe){
+    this.postRequest(recipe).subscribe(data=>console.log(data));
     this.recipes.push(recipe);
     this.recipesChanged.next(this.recipes.slice());
   }
   
   updateRecipe(index: number, newRecipe: Recipe){
+    this.putRequest(this.IDs[index], newRecipe).subscribe(data=>console.log(data));
     this.recipes[index] = newRecipe;
     this.recipesChanged.next(this.recipes.slice());
   }
