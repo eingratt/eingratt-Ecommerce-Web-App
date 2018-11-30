@@ -3,6 +3,8 @@ const bodyParser = require('body-parser');
 // initialize our express app
 
 const product = require('./routes/product.route'); // Imports routes for the products
+const review = require('./routes/review.route'); // Imports routes for the products
+
 
 const app = express();
 
@@ -18,6 +20,8 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use('/products', product);
+app.use('/reviews', review);
+
 
 app.use(express.static('../lab5v3/src/app'));
 

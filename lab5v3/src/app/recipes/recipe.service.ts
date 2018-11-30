@@ -3,6 +3,8 @@ import { Subject } from 'rxjs';
 import { Recipe } from './recipe.model';
 import { Ingredient } from '../shared/ingredient.model';
 import { ShoppingListService } from '../shopping-list/shopping-list.service';
+import { HttpClient } from '@angular/common/http';
+import { HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +28,40 @@ export class RecipeService {
       ])
   ];
   
-  constructor(private slService: ShoppingListService) { }
+  constructor(private slService: ShoppingListService, private http: HttpClient) { }
+  
+  httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type':  'application/json',
+    'Authorization': 'my-auth-token'
+      })
+    };
+  
+  public getRequest(){
+       return this.http.get('/products/getAll');
+       
+   };
+  
+  public postRequest(name: string){
+      let passObject={
+          "name": name,
+          "price": 12,
+          "amount": 100,
+          "taxRate": 0.13,
+      }
+      return this.http.post('/products/create',passObject,this.httpOptions);
+  }
+  
+  deleteRequest (test) {
+    test = test.substring(1,(test.length -1));
+
+    let url = '/products/delete/'; // DELETE api/heroes/42
+    url = url.concat(test);
+    alert(url);
+    return this.http.delete(url, this.httpOptions);
+  }
+  
+  //http requests end
   
   getRecipes(){
     return this.recipes.slice();
