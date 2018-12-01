@@ -10,6 +10,7 @@ import { SignupComponent } from './auth/signup/signup.component';
 import { SigninComponent } from './auth/signin/signin.component';
 import { AuthGuardService } from './auth/auth-guard.service';
 import { AboutComponent } from './about/about.component';
+import { RecipeCommentsComponent } from './recipes/recipe-comments/recipe-comments.component';
 
 
 
@@ -25,7 +26,8 @@ const routes: Routes = [
   { path: 'shopping-list', component: ShoppingListComponent},
   {path: 'signup', component: SignupComponent},
   {path: 'signin', component: SigninComponent},
-  {path: 'about', component: AboutComponent}
+  {path: 'about', component: AboutComponent},
+  { path: 'comments', component: RecipeCommentsComponent, canActivate: [AuthGuardService] }
 
   ];
 

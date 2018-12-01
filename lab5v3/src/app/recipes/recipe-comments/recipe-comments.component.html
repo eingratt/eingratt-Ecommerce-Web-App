@@ -1,0 +1,16 @@
+<div class="row">Reviews:
+    <div class="col-xs-12">
+        <ul class= "list-group">
+            <ng-container *ngFor="let review of reviews; let i = index">
+                <li class="list-group-item">
+                    
+                   {{ review.review }} - {{ review.rating }}
+                   <br>
+                   by: {{ review.userEmail }}
+                  <button class="btn btn-primary" *ngIf="review.isEnabled" (click) = changeState(i)>Disable</button>
+                  <button class="btn btn-danger" *ngIf="!review.isEnabled" (click) = changeState(i)>Re-enable</button>
+                </li>
+             </ng-container>
+        </ul>
+    </div>
+</div>

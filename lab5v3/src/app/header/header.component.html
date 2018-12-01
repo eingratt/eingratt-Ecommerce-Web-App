@@ -7,12 +7,14 @@
         <div class="navbar-default">
         <ul class="nav navbar-nav">
             <li routerLinkActive="active"><a routerLink="/recipes">Recipes</a></li>
-            <ng-template [ngIf]="!authService.isAuthenticated()">
-            <li routerLinkActive="active"><a routerLink="/shopping-list" >Shopping List</a></li>
+            <ng-template [ngIf]="authService.isAuthenticated()">
+            <li routerLinkActive="active" *ngIf="!authService.isAdmin()"><a routerLink="/shopping-list" >Shopping List</a></li>
+            <li routerLinkActive="active" *ngIf="!authService.isAdmin()"><a routerLink="/shopping-list" >Wish List</a></li>
+            <li routerLinkActive="active" *ngIf="authService.isAdmin()"><a routerLink="/comments" >Manage Reviews</a></li>
             </ng-template>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-            <li><a routerLink="/about">About Us</a></li>
+            <li routerLinkActive="active"><a routerLink="/about">About Us</a></li>
             <ng-template [ngIf]="!authService.isAuthenticated()">
                 <li><a routerLink="/signup">Register</a></li>
                 <li><a routerLink="/signin">Login</a></li>
