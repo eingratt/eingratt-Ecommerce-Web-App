@@ -116,8 +116,10 @@ export class AuthService {
     for(var i in this.adminEmails){
       //console.log(user.email);
       //console.log("parsing through email array");
-      if (user.email == "eingratta22@hotmail.com"){
-        console.log("Current user is an Admin.")
+      // console.log(this.adminEmails[i]);
+      // console.log(user.email);
+      if ((user.email) == this.adminEmails[i]){
+       // console.log("Current user is an Admin.")
         return true;
       }
     }

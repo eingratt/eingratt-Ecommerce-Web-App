@@ -3,6 +3,9 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Recipe } from '../recipe.model';
 import { RecipeService } from '../recipe.service';
 import { AuthService } from '../../auth/auth.service';
+import { Review } from '../../shared/review.model';
+import { ReviewService } from '../../shared/review.service';
+
 
 
 @Component({
@@ -13,10 +16,11 @@ import { AuthService } from '../../auth/auth.service';
 export class RecipeDetailComponent implements OnInit {
   recipe: Recipe;
   id: number;
+  reviews: Review[]=[]
 
   constructor(private recipeService: RecipeService, 
   private route: ActivatedRoute,
-  private router: Router, private authService: AuthService) { }
+  private router: Router, private authService: AuthService, private reviewService: ReviewService) { }
 
   ngOnInit() {
     this.route.params
@@ -24,11 +28,17 @@ export class RecipeDetailComponent implements OnInit {
         (params: Params)=>{
           this.id = +params['id'];
           this.recipe = this.recipeService.getRecipe(this.id);
+          this.reviewService.getReviews();
+          this.reviews=this.reviewService.reviews;
         });
   }
   
   onAddToShoppingList(){
  //   this.recipeService.addIngredientToShoppingList(this.recipe.ingredients);
+  }
+  
+  onAddComment(){
+    
   }
   
   onEditRecipe(){

@@ -8,7 +8,7 @@
 <div class="row" *ngIf="authService.isAdmin()">
     <div class="col-xs-12">
        <div class="btn-group" appDropdown>
-           <button type ="button" class=" btn btn-primary dropdown-toggle">Manage Recipe <span class="caret"></span></button>
+           <button type ="button" class=" btn btn-primary dropdown-toggle">Manage Product <span class="caret"></span></button>
        <ul class="dropdown-menu">
            <li><a (click)="onAddToShoppingList()" style="cursor: pointer;">To Shopping List</a></li>
             <li><a style="cursor: pointer;" (click)="onEditRecipe()">Edit Recipe</a></li>
@@ -19,7 +19,13 @@
 </div>
 <div class="row" *ngIf="!authService.isAdmin()">
     <div class="col-xs-12">
-       <li><a style="cursor: pointer;">Add to Cart</a></li>
+      <div class="btn-group" appDropdown>
+           <button type ="button" class=" btn btn-primary dropdown-toggle">Product Options<span class="caret"></span></button>
+       <ul class="dropdown-menu">
+           <li><a (click)="onAddToShoppingList()" style="cursor: pointer;">To Shopping List</a></li>
+            <li><a style="cursor: pointer;" (click)="onAddComment()">Add Comment</a></li>
+       </ul>
+       </div>
     </div>
 </div>
 </ng-template>
@@ -33,5 +39,21 @@
     </div>
     <div class="col-xs-12">
        Stock: {{recipe.amount}}
+    </div>
+</div>
+<hr>
+<div class="row">Reviews:
+    <div class="col-xs-12">
+        <ul class= "list-group">
+            <ng-container *ngFor="let review of reviews">
+                <li class="list-group-item" *ngIf="review.productName == recipe.name">
+                    
+                   {{ review.review }} - {{ review.rating }}
+                   <br>
+                   by: {{ review.userEmail }}
+                  
+                </li>
+             </ng-container>
+        </ul>
     </div>
 </div>
