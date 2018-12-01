@@ -1,4 +1,5 @@
-<div class="row">
+<ng-template [ngIf]="authService.isAuthenticated()">
+<div class="row" *ngIf="authService.isAdmin()">
     <div class="col-xs-12">
         <form [formGroup]="recipeForm" (ngSubmit)="onSubmit()">
             <div class="row">
@@ -46,3 +47,34 @@
         </form>
     </div>
 </div>
+
+<div class="row" *ngIf="!authService.isAdmin()">
+    <div class="col-xs-12">
+        <form [formGroup]="reviewForm" (ngSubmit)="onAddComment()">
+        <div class="row" style="margin-top: 10px;">
+            <div class="col-xs-8">
+                <label for="review">Review</label>
+                <input type="text" class="form-control" formControlName="review">
+            </div>
+            <div class="col-xs-2">
+                <label for="rating">rating</label>
+                <input type="number" min='1' max='5' class="form-control" formControlName="rating">
+            </div>
+            <div class="col-xs-2">
+                <button type="button" class="btn btn-danger" (click)="onCancel()">X</button>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-xs-12">
+                <button [disabled]="!reviewForm.valid" type="submit" class="btn btn-success">Add Comment</button>
+            </div>
+        </div>
+        </form>
+    </div>
+</div>
+
+
+
+
+</ng-template>

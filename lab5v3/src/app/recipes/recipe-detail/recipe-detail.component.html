@@ -23,7 +23,7 @@
            <button type ="button" class=" btn btn-primary dropdown-toggle">Product Options<span class="caret"></span></button>
        <ul class="dropdown-menu">
            <li><a (click)="onAddToShoppingList()" style="cursor: pointer;">To Shopping List</a></li>
-            <li><a style="cursor: pointer;" (click)="onAddComment()">Add Comment</a></li>
+            <li><a style="cursor: pointer;" (click)="onEditRecipe()">Add Comment</a></li>
        </ul>
        </div>
     </div>
@@ -45,8 +45,8 @@
 <div class="row">Reviews:
     <div class="col-xs-12">
         <ul class= "list-group">
-            <ng-container *ngFor="let review of reviews">
-                <li class="list-group-item" *ngIf="review.productName == recipe.name">
+            <ng-container *ngFor="let review of reviews; let i = index">
+                <li class="list-group-item" *ngIf="review.productName == pID">
                     
                    {{ review.review }} - {{ review.rating }}
                    <br>

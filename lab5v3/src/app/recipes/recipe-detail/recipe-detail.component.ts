@@ -16,8 +16,9 @@ import { ReviewService } from '../../shared/review.service';
 export class RecipeDetailComponent implements OnInit {
   recipe: Recipe;
   id: number;
-  reviews: Review[]=[]
-
+  reviews: Review[]=[];
+  pID: string;
+  
   constructor(private recipeService: RecipeService, 
   private route: ActivatedRoute,
   private router: Router, private authService: AuthService, private reviewService: ReviewService) { }
@@ -28,6 +29,9 @@ export class RecipeDetailComponent implements OnInit {
         (params: Params)=>{
           this.id = +params['id'];
           this.recipe = this.recipeService.getRecipe(this.id);
+          this.pID = this.recipeService.IDs[this.id];
+          this.pID =  this.pID.substring(1,(this.pID.length -1));
+          //alert(this.recipeService.IDs[this.id]);
           this.reviewService.getReviews();
           this.reviews=this.reviewService.reviews;
         });
@@ -38,7 +42,8 @@ export class RecipeDetailComponent implements OnInit {
   }
   
   onAddComment(){
-    
+   // alert(this.pIDS[0]);
+   
   }
   
   onEditRecipe(){

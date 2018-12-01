@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { FormGroup, FormControl, FormArray, Validators } from '@angular/forms';
 import { RecipeService } from '../recipe.service';
+import { AuthService } from '../../auth/auth.service';
+import { ReviewService } from '../../shared/review.service';
+
 
 @Component({
   selector: 'app-recipe-edit',
@@ -12,10 +15,13 @@ export class RecipeEditComponent implements OnInit {
   id: number;
   editMode = false;
   recipeForm: FormGroup;
+  reviewForm: FormGroup;
   
   constructor(private route: ActivatedRoute, 
   private recipeService: RecipeService, 
-  private router: Router) { }
+  private router: Router,
+  private authService: AuthService,
+  private reviewService: ReviewService) { }
 
   ngOnInit() {
     this.route.params
@@ -76,6 +82,14 @@ export class RecipeEditComponent implements OnInit {
       'amount': new FormControl(recipeAmount, Validators.required)
     });
     
+    this.reviewForm = new FormGroup({
+      'review': new FormControl(null, Validators.required),
+      'rating': new FormControl(null, [Validators.required,
+            Validators.pattern(/^[1-9]+[0-9]*$/),Validators.max(5)
+            ])
+    });
+    
+    
   }
   
   getControls(){
@@ -87,7 +101,7 @@ export class RecipeEditComponent implements OnInit {
       new FormGroup({
         'name': new FormControl(null, Validators.required),
         'amount': new FormControl(null, [Validators.required,
-            Validators.pattern(/^[1-9]+[0-9]*$/)
+            Validators.pattern(/^[1-9]+[0-9]*$/),Validators.max(5)
             ])
       })
     );
@@ -96,6 +110,11 @@ export class RecipeEditComponent implements OnInit {
   
   onDeleteIngredient(index: number){
     (<FormArray>this.recipeForm.get('ingredients')).removeAt(index);
+  }
+  
+  onAddComment(){
+    this.reviewService.addReview(this.reviewForm.value, this.id);
+    this.router.navigate(['../'], {relativeTo: this.route});
   }
   
   onCancel(){

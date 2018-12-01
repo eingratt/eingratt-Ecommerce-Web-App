@@ -12,6 +12,7 @@ export class AuthService {
   token: string;
   userCreated: boolean;
   adminEmails: string[];
+  currentEmail: string;
 
   httpOptions = {
   headers: new HttpHeaders({
@@ -52,6 +53,7 @@ export class AuthService {
                     this.logout();
                 } else {
                     this.router.navigate(['/']);
+                    this.currentEmail = firebase.auth().currentUser.email;
                     firebase.auth().currentUser.getIdToken()
                         .then(
                             (token: string) => this.token = token

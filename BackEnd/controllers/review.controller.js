@@ -11,7 +11,8 @@ exports.review_create = function (req, res) {
             review: req.body.review,
             rating: req.body.rating,
             productName:req.body.productName,
-            userEmail: req.body.userEmail
+            userEmail: req.body.userEmail,
+            isEnabled: req.body.isEnabled
         }
     );
 
