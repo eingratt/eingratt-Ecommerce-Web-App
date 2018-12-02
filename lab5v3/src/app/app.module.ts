@@ -28,6 +28,8 @@ import { RecipeCommentsComponent } from './recipes/recipe-comments/recipe-commen
 import { SecurityPrivacyComponent } from './policies/security-privacy/security-privacy.component';
 import { DMCAComponent } from './policies/dmca/dmca.component';
 import { LogIssuesComponent } from './policies/log-issues/log-issues.component';
+import { MakelistComponent } from './wishlist/makelist/makelist.component';
+import { ViewlistsComponent } from './wishlist/viewlists/viewlists.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +50,9 @@ import { LogIssuesComponent } from './policies/log-issues/log-issues.component';
     RecipeCommentsComponent,
     SecurityPrivacyComponent,
     DMCAComponent,
-    LogIssuesComponent
+    LogIssuesComponent,
+    MakelistComponent,
+    ViewlistsComponent
   ],
   imports: [
     BrowserModule,

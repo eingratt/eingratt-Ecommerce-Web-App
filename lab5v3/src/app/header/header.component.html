@@ -9,7 +9,8 @@
             <li routerLinkActive="active"><a routerLink="/recipes">Recipes</a></li>
             <ng-template [ngIf]="authService.isAuthenticated()">
             <li routerLinkActive="active" *ngIf="!authService.isAdmin()"><a routerLink="/shopping-list" >Shopping List</a></li>
-            <li routerLinkActive="active" *ngIf="!authService.isAdmin()"><a routerLink="/shopping-list" >Wish List</a></li>
+            <li routerLinkActive="active" *ngIf="!authService.isAdmin()"><a routerLink="/makewishlist" >Create Wish List</a></li>
+            <li routerLinkActive="active" *ngIf="!authService.isAdmin()"><a routerLink="/viewwishlists" >View Wish Lists</a></li>
             <li routerLinkActive="active" *ngIf="authService.isAdmin()"><a routerLink="/comments" >Manage Reviews</a></li>
             </ng-template>
         </ul>

@@ -14,6 +14,8 @@ import { RecipeCommentsComponent } from './recipes/recipe-comments/recipe-commen
 import { SecurityPrivacyComponent } from './policies/security-privacy/security-privacy.component';
 import { DMCAComponent } from './policies/dmca/dmca.component';
 import { LogIssuesComponent } from './policies/log-issues/log-issues.component';
+import { MakelistComponent } from './wishlist/makelist/makelist.component';
+import { ViewlistsComponent } from './wishlist/viewlists/viewlists.component';
 
 
 
@@ -32,7 +34,9 @@ const routes: Routes = [
   { path: 'comments', component: RecipeCommentsComponent, canActivate: [AuthGuardService] },
   { path: 'securityPrivacy', component: SecurityPrivacyComponent },
   { path: 'dmca', component: DMCAComponent },
-  { path: 'logIssues', component: LogIssuesComponent }
+  { path: 'logIssues', component: LogIssuesComponent, canActivate: [AuthGuardService] },
+  { path: 'makewishlist', component: MakelistComponent },
+  { path: 'viewwishlists', component: ViewlistsComponent }
 
   ];
 
