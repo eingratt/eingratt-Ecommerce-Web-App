@@ -16,6 +16,7 @@ export class RecipeListComponent implements OnInit, OnDestroy {
   recipes: Recipe[]=[
     //new Recipe ('Initializer',0,'We do not have any products yet, please check back soon.',0),
     ];
+    pIDs: string[]=[];
   subscritption: Subscription;
 
   constructor(private recipeService: RecipeService, 
@@ -30,9 +31,13 @@ export class RecipeListComponent implements OnInit, OnDestroy {
       .subscribe(
         (recipes: Recipe[]) => {
           this.recipes = recipes;
+        },
+        (pIDs: string[]) => {
+          this.pIDs = pIDs;
         }
       );
     this.recipes = this.recipeService.getRecipes();
+    this.pIDs = this.recipeService.getIDs();
   }
   
   onNewRecipe(){

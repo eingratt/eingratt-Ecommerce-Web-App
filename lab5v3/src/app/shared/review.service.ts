@@ -12,6 +12,10 @@ import { AuthService } from '../auth/auth.service';
 export class ReviewService {
   reviews: Review[]=[];
   IDs: string[] = [];
+  getUrl: string = '/reviews/getAll';
+  createUrl: string = '/reviews/create';
+  updateUrl: string = '/reviews/update/';
+
 
   constructor(private http: HttpClient, private authService: AuthService, private recipeService: RecipeService) { }
   
@@ -32,9 +36,6 @@ export class ReviewService {
       for(var i in data){
         this.reviews.push(new Review(data[i].review,data[i].rating,data[i].productName,data[i].userEmail,data[i].isEnabled));
         this.IDs.push(data[i]._id);
-       // this.recipesChanged.next(this.recipes);
-        //console.log(data[i]._id);
-        //console.log(this.recipes);
       }
     }
     });
@@ -44,7 +45,7 @@ export class ReviewService {
   
   
   public getRequest(){
-       return this.http.get('/reviews/getAll');
+       return this.http.get(this.getUrl);
        
    };
   
@@ -58,7 +59,7 @@ export class ReviewService {
           "userEmail": review.userEmail,
           "isEnabled": review.isEnabled
       }
-      return this.http.post('/reviews/create',passObject,this.httpOptions);
+      return this.http.post(this.createUrl,passObject,this.httpOptions);
   }
   
   addReview(review: any, rID: number){
@@ -73,7 +74,7 @@ export class ReviewService {
   }
   
   putRequest(index,newReview: Review){
-    let url = '/reviews/update/';
+    let url = this.updateUrl;
     url = url.concat(index);
     console.log(url);
     let passObject={

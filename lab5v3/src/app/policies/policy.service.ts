@@ -12,6 +12,10 @@ export class PolicyService {
   dmcaID: number;
   policyLogs: Policy[]=[];
   logIDs: string[]=[];
+  
+  getUrl: string = '/policylogs/getAll';
+  createUrl: string = '/policylogs/create';
+  updateUrl: string = '/policylogs/update/';
 
   httpOptions = {
   headers: new HttpHeaders({
@@ -21,33 +25,6 @@ export class PolicyService {
     };
 
   constructor(private http: HttpClient) { }
-  
-   
-  // getLogs(){
-  //   this.getRequest()
-  //   .subscribe((data)=>{
-  //     if (data){
-  //     this.policyLogs=[];
-  //     this.logIDs=[];
-  //     // this.IDs = [];
-  //     for(var i in data){
-  //     //  if(data[i].header == "securityPolicy" ){
-  //       //  this.securityPrivacyPoly = new Policy(data[i].header, data[i].information);
-  //     //    this.securityID = i;
-  //     // }else if(data[i].header == "dmcaPolicy" ){
-  //       //  this.dmcaPoly = new Policy(data[i].header, data[i].information);
-  //     //    this.dmcaID = i;
-  //     //  }
-  //         this.logIDS.push(data[i]_id);
-  //         this.policyLogs.push(new Policy(data[i].header, data[i].information));
-  //         //this.IDs.push(data[i]._id);
-        
-  //     }
-  //   }
-  //   });
-  //   //console.log(this.recipes);
-  //   console.log("Logs imported from database.")
-  //   }
     
   getLogs(){
   this.getRequest()
@@ -71,7 +48,7 @@ export class PolicyService {
   
   
   public getRequest(){
-       return this.http.get('/policylogs/getAll');
+       return this.http.get(this.getUrl);
        
    };
   
@@ -80,7 +57,7 @@ export class PolicyService {
           "header": policy.header,
           "information": policy.information
       }
-      return this.http.post('/policylogs/create',passObject,this.httpOptions);
+      return this.http.post(this.createUrl,passObject,this.httpOptions);
   }
   
   addLog(polyLog: any){
@@ -95,7 +72,7 @@ export class PolicyService {
   }
   
   putRequest(index: string, newLog: string){
-    let url = '/policylogs/update/';
+    let url = this.updateUrl;
     url = url.concat(index);
     console.log(url);
     let passObject={

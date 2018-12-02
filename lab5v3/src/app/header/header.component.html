@@ -6,7 +6,7 @@
         
         <div class="navbar-default">
         <ul class="nav navbar-nav">
-            <li routerLinkActive="active"><a routerLink="/recipes">Recipes</a></li>
+            <li routerLinkActive="active"><a routerLink="/recipes">Products</a></li>
             <ng-template [ngIf]="authService.isAuthenticated()">
             <li routerLinkActive="active" *ngIf="!authService.isAdmin()"><a routerLink="/shopping-list" >Shopping List</a></li>
             <li routerLinkActive="active" *ngIf="!authService.isAdmin()"><a routerLink="/makewishlist" >Create Wish List</a></li>

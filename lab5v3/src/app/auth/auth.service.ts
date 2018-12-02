@@ -16,6 +16,12 @@ export class AuthService {
   userEmails: any;
   userIDs: string[];
 
+  getAdminUrl: string = '/admins/getAll';
+  createAdminUrl: string = '/admins/create';
+
+  getUserUrl: string = '/useremails/getAll';
+  createUserUrl: string = '/useremails/create';
+  updateUserUrl: string = '/useremails/update/';
 
   httpOptions = {
   headers: new HttpHeaders({
@@ -158,7 +164,7 @@ export class AuthService {
   }
   
   public getAdminsRequest(){
-       return this.http.get('/admins/getAll');
+       return this.http.get(this.getAdminUrl);
        
    };
   
@@ -167,7 +173,7 @@ export class AuthService {
   
   // User emails database functions
   public getEmailsRequest(){
-       return this.http.get('/useremails/getAll');
+       return this.http.get(this.getUserUrl);
        
    };
   
@@ -193,7 +199,7 @@ export class AuthService {
           "userEmail": email,
           "isEnabled": enabled
       }
-      return this.http.post('/useremails/create',passObject,this.httpOptions);
+      return this.http.post(this.createUserUrl,passObject,this.httpOptions);
   }
   
   addEmail(email: string, enabled: boolean){
@@ -205,7 +211,7 @@ export class AuthService {
   
   // put method to disable user
   putRequest(index,newEmail: any){
-    let url = '/useremails/update/';
+    let url = this.updateUserUrl;
     url = url.concat(index);
     console.log(url);
     let passObject={
@@ -228,18 +234,12 @@ export class AuthService {
           "name": "moderator",
           "userEmail": email
       }
-      return this.http.post('/admins/create',passObject,this.httpOptions);
+      return this.http.post(this.createAdminUrl,passObject,this.httpOptions);
   }
   
   addAdmin(email: string){
-   // let pID = this.recipeService.IDs[rID];
-  //  pID = pID.substring(1,(pID.length -1));
-  //  let user = this.authService.currentEmail;
-  //  let newReview = new Review(review.review,review.rating,pID,user,true)
-  //  console.log(newReview);
     this.postAdminsRequest(email).subscribe(data=>console.log(data));
     this.adminEmails.push(email);
-    //this.recipesChanged.next(this.recipes.slice());
   }
   
 }

@@ -19,6 +19,11 @@ export class RecipeService {
   private recipeT: Recipe = new Recipe ('Initializer',0,'Used to initilize array to avoid error NUll',0);
   IDs: string[];
   
+  getUrl: string = '/products/getAll';
+  createUrl: string = '/products/create';
+  updateUrl: string = '/products/update/';
+  deleteUrl: string = '/products/delete/';
+  
   makeRecipes(){
      this.getRequest()
     .subscribe((data)=>{
@@ -51,7 +56,7 @@ export class RecipeService {
     };
   
   public getRequest(){
-       return this.http.get('/products/getAll');
+       return this.http.get(this.getUrl);
        
    };
   
@@ -62,13 +67,13 @@ export class RecipeService {
           "details": recipe.description,
           "amount": recipe.amount
       }
-      return this.http.post('/products/create',passObject,this.httpOptions);
+      return this.http.post(this.createUrl,passObject,this.httpOptions);
   }
   
   deleteRequest (index) {
     
     index = index.substring(1,(index.length -1));
-    let url = '/products/delete/'; // DELETE api/heroes/42
+    let url = this.deleteUrl; // DELETE api/heroes/42
     url = url.concat(index);
     alert(url);
     this.IDs.splice(index,1);
@@ -82,7 +87,7 @@ export class RecipeService {
   
   putRequest(index,newRecipe: Recipe){
     index = index.substring(1,(index.length -1));
-    let url = '/products/update/'; // DELETE api/heroes/42
+    let url = this.updateUrl; // DELETE api/heroes/42
     url = url.concat(index);
     let passObject={
           "name": newRecipe.name,
@@ -104,6 +109,15 @@ export class RecipeService {
     
   }
   
+  getIDs(){
+    //this.recipes.push(this.recipeT);
+    this.makeRecipes();
+    
+    //console.log(this.recipeT)
+    return this.IDs;
+    
+  }
+  
   getRecipe(index: number){
     return this.recipes[index];
   }
@@ -112,10 +126,11 @@ export class RecipeService {
     this.slService.addIngredients(ingredients);
     
   }
-  
+  // add id
   addRecipe(recipe: Recipe){
     this.postRequest(recipe).subscribe(data=>console.log(data));
     this.recipes.push(recipe);
+    this.makeRecipes();
     this.recipesChanged.next(this.recipes.slice());
   }
   
