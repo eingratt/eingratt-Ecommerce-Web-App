@@ -1,0 +1,17 @@
+<div class="row">Reviews:
+    <div class="col-xs-12">
+        <ul class= "list-group">
+            <ng-container *ngFor="let userEmail of userEmails; let i = index">
+                <li class="list-group-item">
+                    
+                   {{ userEmail.email }}  :
+                  <button class="btn btn-primary" *ngIf="userEmail.enabled" (click) = changeState(i)>Disable Account</button>
+                  <button class="btn btn-danger" *ngIf="!userEmail.enabled" (click) = changeState(i)>Re-enable Account</button>
+                  <ng-container class="verticalLine">
+                      <button class="btn btn-danger" (click) = makeAdmin(i)>Make Admin</button>
+                    </ng-container>
+                </li>
+             </ng-container>
+        </ul>
+    </div>
+</div>

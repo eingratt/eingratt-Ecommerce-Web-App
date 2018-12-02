@@ -17,6 +17,7 @@ import { LogIssuesComponent } from './policies/log-issues/log-issues.component';
 import { MakelistComponent } from './wishlist/makelist/makelist.component';
 import { ViewlistsComponent } from './wishlist/viewlists/viewlists.component';
 import { MylistsComponent } from './wishlist/mylists/mylists.component';
+import { ManageusersComponent } from './auth/manageusers/manageusers.component';
 
 
 
@@ -39,8 +40,8 @@ const routes: Routes = [
   { path: 'logIssues', component: LogIssuesComponent, canActivate: [AuthGuardService] },
   { path: 'makewishlist', component: MakelistComponent },
   { path: 'publicwishlists', component: ViewlistsComponent },
-  { path: 'mywishlists', component: MylistsComponent }
-
+  { path: 'mywishlists', component: MylistsComponent },
+  { path: 'useremails', component: ManageusersComponent }
 
   ];
 

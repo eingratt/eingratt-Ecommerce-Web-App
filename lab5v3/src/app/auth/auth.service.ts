@@ -13,6 +13,9 @@ export class AuthService {
   userCreated: boolean;
   adminEmails: string[];
   currentEmail: string;
+  userEmails: any;
+  userIDs: string[];
+
 
   httpOptions = {
   headers: new HttpHeaders({
@@ -30,6 +33,8 @@ export class AuthService {
             })
         this.sendVerificationEmail();
         alert("A verification email has been sent to " + email + " please follow the link provided in this email to verify your account.")
+        // post request
+        this.addEmail(email, true);
         this.logout;
         this.router.navigate(['/']);
       }
@@ -51,7 +56,17 @@ export class AuthService {
                     alert("Your account is not yet activated, a new verification email has been sent to " + email);
                     this.sendVerificationEmail();
                     this.logout();
-                } else {
+                } 
+                else {
+                  let user = firebase.auth().currentUser;
+                  for (var i in this.userEmails){
+                    if(user.email == this.userEmails[i].email && this.userEmails[i].enabled == false){
+                      //alert("This account has been disabled by a Website Admin,\nplease contact eingratta22@hotmail.com for more info.");
+                      this.logout();
+                     return;
+                    }
+                  }
+                  // if with for loop in an else if
                     this.router.navigate(['/']);
                     this.currentEmail = firebase.auth().currentUser.email;
                     firebase.auth().currentUser.getIdToken()
@@ -148,4 +163,83 @@ export class AuthService {
    };
   
   constructor(private router: Router, private http: HttpClient) { }
+  
+  
+  // User emails database functions
+  public getEmailsRequest(){
+       return this.http.get('/useremails/getAll');
+       
+   };
+  
+  getEmails(){
+    this.getEmailsRequest()
+    .subscribe((data)=>{
+      this.userEmails=[];
+      this.userIDs=[]
+      if (data){
+      for(var i in data){
+        this.userEmails.push({email: data[i].userEmail, enabled: data[i].isEnabled});
+        this.userIDs.push(data[i]._id);
+        console.log("check me " + this.userEmails[i].email + this.userEmails[i].enabled);
+      }
+    }
+    });
+    console.log("Users imported from database.")
+  }
+  
+  //post request
+  public postEmailsRequest(email: String, enabled: boolean){
+      let passObject={
+          "userEmail": email,
+          "isEnabled": enabled
+      }
+      return this.http.post('/useremails/create',passObject,this.httpOptions);
+  }
+  
+  addEmail(email: string, enabled: boolean){
+    
+    console.log(this.userEmails);
+    this.postEmailsRequest(email,enabled).subscribe(data=>console.log(data));
+    this.userEmails.push({email: email, enabled: enabled});
+  }
+  
+  // put method to disable user
+  putRequest(index,newEmail: any){
+    let url = '/useremails/update/';
+    url = url.concat(index);
+    console.log(url);
+    let passObject={
+          "userEmail": newEmail.email,
+          "isEnabled": newEmail.enabled
+      }
+    return this.http.put(url, passObject, this.httpOptions)
+  }
+  
+  updateEmail(index: number, newEmail: any){
+     console.log(index);
+     console.log(this.userIDs[index]);
+    this.putRequest(this.userIDs[index], newEmail).subscribe(data=>console.log(data));
+    this.userEmails[index] = newEmail;
+  }
+  
+  // Add to admins collection
+  public postAdminsRequest(email: string){
+      let passObject={
+          "name": "moderator",
+          "userEmail": email
+      }
+      return this.http.post('/admins/create',passObject,this.httpOptions);
+  }
+  
+  addAdmin(email: string){
+   // let pID = this.recipeService.IDs[rID];
+  //  pID = pID.substring(1,(pID.length -1));
+  //  let user = this.authService.currentEmail;
+  //  let newReview = new Review(review.review,review.rating,pID,user,true)
+  //  console.log(newReview);
+    this.postAdminsRequest(email).subscribe(data=>console.log(data));
+    this.adminEmails.push(email);
+    //this.recipesChanged.next(this.recipes.slice());
+  }
+  
 }

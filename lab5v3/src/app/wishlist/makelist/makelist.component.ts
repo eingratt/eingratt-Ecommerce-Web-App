@@ -50,8 +50,13 @@ export class MakelistComponent implements OnInit, OnDestroy {
     //this.router.navigate(['new'], {relativeTo: this.route});
   }
   
-  onNewList(index, i){
+  onNewList(){
     this.router.navigate([''])
+    //post to wishlist
+  }
+  
+  addToList(index, i){
+    //post to items in wishlist
   }
   
   changeState(){

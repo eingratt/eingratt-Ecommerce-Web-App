@@ -29,7 +29,6 @@ export class RecipeCommentsComponent implements OnInit {
   
   changeState(index){
     //this will be a post
-    alert("State Change Pressed");
     this.reviews[index].isEnabled =  !this.reviews[index].isEnabled;
     this.reviewService.updateReview(index,this.reviews[index]);
     

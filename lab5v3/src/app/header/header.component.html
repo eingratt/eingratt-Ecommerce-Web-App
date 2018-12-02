@@ -13,6 +13,7 @@
             <li routerLinkActive="active" *ngIf="!authService.isAdmin()"><a routerLink="/publicwishlists" >Public Wish Lists</a></li>
             <li routerLinkActive="active" *ngIf="!authService.isAdmin()"><a routerLink="/mywishlists" >My Wish Lists</a></li>
             <li routerLinkActive="active" *ngIf="authService.isAdmin()"><a routerLink="/comments" >Manage Reviews</a></li>
+            <li routerLinkActive="active" *ngIf="authService.isAdmin()"><a routerLink="/useremails" >Manage Users</a></li>
             </ng-template>
         </ul>
         <ul class="nav navbar-nav navbar-right">

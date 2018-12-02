@@ -18,6 +18,7 @@ export class HeaderComponent implements OnInit {
     this.authService.makeAdmins();
     this.reviewService.getReviews();
     this.policyService.getLogs();
+    this.authService.getEmails();
   }
   
   onLogout(){

@@ -19,7 +19,7 @@
             <p class="list-group-item-text">Stock: {{recipe.amount}}</p>
             Amount: <input #amount type="number" min='0' value ='1'>
             <hr>
-            <button type="button" class="btn btn-success" (click) = "onNewList(amount.value, i)">Add To Wishlist</button>
+            <button type="button" class="btn btn-success" (click) = "addToList(amount.value, i)">Add To Wishlist</button>
             </div>
             
         </div>

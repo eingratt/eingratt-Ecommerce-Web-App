@@ -8,6 +8,7 @@ const admin = require('./routes/admin.route'); // Imports routes for the admins
 const policylog = require('./routes/policylog.route'); // Imports routes for the policylogs
 const wishlist = require('./routes/wishlist.route'); // Imports routes for the wishlists
 const wishlistitem = require('./routes/wishlistitem.route'); // Imports routes for the wishlistitems
+const useremail = require('./routes/useremail.route'); // Imports routes for the useremails
 
 const app = express();
 
@@ -28,6 +29,7 @@ app.use('/admins', admin);
 app.use('/policylogs', policylog);
 app.use('/wishlists', wishlist);
 app.use('/wishlistitems', wishlistitem);
+app.use('/useremails', useremail);
 
 
 app.use(express.static('../lab5v3/src/app'));
