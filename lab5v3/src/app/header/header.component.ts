@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
 import { ReviewService } from '../shared/review.service';
+import { PolicyService } from '../policies/policy.service';
+
 
 @Component({
   selector: 'app-header',
@@ -9,12 +11,13 @@ import { ReviewService } from '../shared/review.service';
 })
 export class HeaderComponent implements OnInit {
   
-  constructor(private authService: AuthService, private reviewService: ReviewService) { }
+  constructor(private authService: AuthService, private reviewService: ReviewService, private policyService: PolicyService) { }
   
 
   ngOnInit() {
     this.authService.makeAdmins();
     this.reviewService.getReviews();
+    this.policyService.getLogs();
   }
   
   onLogout(){

@@ -11,7 +11,9 @@ import { SigninComponent } from './auth/signin/signin.component';
 import { AuthGuardService } from './auth/auth-guard.service';
 import { AboutComponent } from './about/about.component';
 import { RecipeCommentsComponent } from './recipes/recipe-comments/recipe-comments.component';
-
+import { SecurityPrivacyComponent } from './policies/security-privacy/security-privacy.component';
+import { DMCAComponent } from './policies/dmca/dmca.component';
+import { LogIssuesComponent } from './policies/log-issues/log-issues.component';
 
 
 
@@ -27,7 +29,10 @@ const routes: Routes = [
   {path: 'signup', component: SignupComponent},
   {path: 'signin', component: SigninComponent},
   {path: 'about', component: AboutComponent},
-  { path: 'comments', component: RecipeCommentsComponent, canActivate: [AuthGuardService] }
+  { path: 'comments', component: RecipeCommentsComponent, canActivate: [AuthGuardService] },
+  { path: 'securityPrivacy', component: SecurityPrivacyComponent },
+  { path: 'dmca', component: DMCAComponent },
+  { path: 'logIssues', component: LogIssuesComponent }
 
   ];
 

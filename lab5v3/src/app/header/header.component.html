@@ -20,11 +20,14 @@
                 <li><a routerLink="/signin">Login</a></li>
             </ng-template>
             <li><a style="cursor: pointer;" (click)="onLogout()" *ngIf="authService.isAuthenticated()">Logout</a></li>
-            <li class="dropdown" appDropdown *ngIf="authService.isAuthenticated()">
-                <a style="cursor: pointer;" class="dropdown-toggle" role="button"> Manage Me <span class="caret"></span></a>
+            <li class="dropdown" appDropdown>
+                <a style="cursor: pointer;" class="dropdown-toggle" role="button"> Policies <span class="caret"></span></a>
                 <ul class= "dropdown-menu">
-                    <li><a style="cursor: pointer;">Save Data</a></li>
-                    <li><a style="cursor: pointer;">Fetch Data</a></li>
+                    <li><a routerLink="/securityPrivacy" style="cursor: pointer;">Security & Privacy</a></li>
+                    <li><a routerLink="/dmca" style="cursor: pointer;">DMCA Notice & Takedown</a></li>
+                    <ng-container *ngIf="authService.isAuthenticated()">
+                       <li *ngIf="authService.isAdmin()"><a routerLink="/logIssues" style="cursor: pointer;">Log Policy Issues</a></li>
+                    </ng-container>
                 </ul>
             </li>
         </ul>

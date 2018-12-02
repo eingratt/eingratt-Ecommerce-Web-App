@@ -16,5 +16,11 @@
         "secure": false,
         "changeOrigin": true,
         "logLevel": "info"
+    },
+    "/policylogs": {
+        "target": "https://eingratt-se3316a-lab5-v3-eingratt.c9users.io:8081",
+        "secure": false,
+        "changeOrigin": true,
+        "logLevel": "info"
     }
 }

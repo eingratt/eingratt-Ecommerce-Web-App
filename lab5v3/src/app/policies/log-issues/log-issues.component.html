@@ -1,0 +1,42 @@
+<div class="row">Policy Logs:
+    <div class="col-xs-12">
+        <ul class= "list-group">
+            <ng-container *ngFor="let policyLog of policyLogs; let i = index">
+                <li class="list-group-item" *ngIf="policyLog.header != 'dmcaPolicy' && policyLog.header != 'securityPolicy'">
+                    
+                   {{ policyLog.header }}
+                   <br>
+                   <hr>
+                   {{ policyLog.information }}
+                </li>
+             </ng-container>
+        </ul>
+    </div>
+</div>
+<ng-container *ngIf="authService.isAuthenticated()">
+<div class="row" *ngIf="authService.isAdmin()">
+    <div class="col-xs-12">
+        <form [formGroup]="logForm" (ngSubmit)="onAddLog()">
+        <div class="row" style="margin-top: 10px;">
+            <div class="col-xs-8">
+                <label for="header">Header:</label>
+                <input type="text" class="form-control" formControlName="header">
+            </div>
+            <div class="col-xs-2">
+                <label for="information">information</label>
+                <input type="text" class="form-control" formControlName="information">
+            </div>
+            <div class="col-xs-2">
+                <button type="button" class="btn btn-danger" (click)="onCancel()">X</button>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-xs-12">
+                <button [disabled]="!logForm.valid" type="submit" class="btn btn-success">Add Log</button>
+            </div>
+        </div>
+        </form>
+    </div>
+</div>
+</ng-container>

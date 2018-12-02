@@ -25,6 +25,9 @@ import { SigninComponent } from './auth/signin/signin.component';
 import { AuthGuardService } from './auth/auth-guard.service';
 import { AboutComponent } from './about/about.component';
 import { RecipeCommentsComponent } from './recipes/recipe-comments/recipe-comments.component';
+import { SecurityPrivacyComponent } from './policies/security-privacy/security-privacy.component';
+import { DMCAComponent } from './policies/dmca/dmca.component';
+import { LogIssuesComponent } from './policies/log-issues/log-issues.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +45,10 @@ import { RecipeCommentsComponent } from './recipes/recipe-comments/recipe-commen
     SignupComponent,
     SigninComponent,
     AboutComponent,
-    RecipeCommentsComponent
+    RecipeCommentsComponent,
+    SecurityPrivacyComponent,
+    DMCAComponent,
+    LogIssuesComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,38 @@
+<div class="row">DMCA notice & Take down procedure:
+    <div class="col-xs-12">
+        <ul class= "list-group">
+            <ng-container *ngFor="let dmcaPolicy of dmcaPolicies; let i = index">
+                <li class="list-group-item" *ngIf="dmcaPolicy.header == 'dmcaPolicy'">
+                    
+                   {{ dmcaPolicy.header }}
+                   <br>
+                   <hr>
+                   {{ dmcaPolicy.information }}
+                </li>
+            </ng-container>
+        </ul>
+    </div>
+</div>
+<ng-container *ngIf="authService.isAuthenticated()">
+<div class="row" *ngIf="authService.isAdmin()">
+    <div class="col-xs-12">
+        <form [formGroup]="logForm" (ngSubmit)="onAddLog()">
+        <div class="row" style="margin-top: 10px;">
+            <div class="col-xs-2">
+                <label for="information">Policy Info</label>
+                <input type="text" class="form-control" formControlName="information">
+            </div>
+            <div class="col-xs-2">
+                <button type="button" class="btn btn-danger" (click)="onCancel()">X</button>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-xs-12">
+                <button [disabled]="!logForm.valid" type="submit" class="btn btn-success">Change DMCA Policy</button>
+            </div>
+        </div>
+        </form>
+    </div>
+</div>
+</ng-container>
