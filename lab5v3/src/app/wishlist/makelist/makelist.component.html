@@ -1,3 +1,29 @@
-<p>
-  makelist works!
-</p>
+<div class="row">
+    <div class="col-xs-12">
+        <ng-container *ngIf="authService.isAuthenticated()">
+        <button (click)="onNewList()" class="btn btn-success">Save Wishlist</button>
+        <button class="btn btn-primary" *ngIf="newList" (click) = changeState()>Make Private</button>
+        <button class="btn btn-danger" *ngIf="!newList" (click) = changeState()>Make Public</button>
+        </ng-container>
+    </div>
+</div>
+<hr>
+<div class="row">
+    <div class="col-xs-12">
+       <ng-container *ngFor="let recipe of recipes; let i = index">
+           <div *ngIf="recipe.amount > 0" style="cursor: pointer;" class="list-group-item clearfix">
+            <div class="pull-left">
+            <h4 class="list-group-item-heading">{{recipe.name}}</h4>
+            <p class="list-group-item-text">{{recipe.description}}</p>
+            <p class="list-group-item-text">Price: $ {{recipe.price}}</p>
+            <p class="list-group-item-text">Stock: {{recipe.amount}}</p>
+            Amount: <input #amount type="number" min='0' value ='1'>
+            <hr>
+            <button type="button" class="btn btn-success" (click) = "onNewList(amount.value, i)">Add To Wishlist</button>
+            </div>
+            
+        </div>
+        
+       </ng-container> 
+    </div>
+</div>

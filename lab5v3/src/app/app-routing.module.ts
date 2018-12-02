@@ -16,6 +16,8 @@ import { DMCAComponent } from './policies/dmca/dmca.component';
 import { LogIssuesComponent } from './policies/log-issues/log-issues.component';
 import { MakelistComponent } from './wishlist/makelist/makelist.component';
 import { ViewlistsComponent } from './wishlist/viewlists/viewlists.component';
+import { MylistsComponent } from './wishlist/mylists/mylists.component';
+
 
 
 
@@ -36,7 +38,9 @@ const routes: Routes = [
   { path: 'dmca', component: DMCAComponent },
   { path: 'logIssues', component: LogIssuesComponent, canActivate: [AuthGuardService] },
   { path: 'makewishlist', component: MakelistComponent },
-  { path: 'viewwishlists', component: ViewlistsComponent }
+  { path: 'publicwishlists', component: ViewlistsComponent },
+  { path: 'mywishlists', component: MylistsComponent }
+
 
   ];
 

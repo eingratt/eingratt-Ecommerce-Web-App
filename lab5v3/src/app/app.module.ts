@@ -30,6 +30,7 @@ import { DMCAComponent } from './policies/dmca/dmca.component';
 import { LogIssuesComponent } from './policies/log-issues/log-issues.component';
 import { MakelistComponent } from './wishlist/makelist/makelist.component';
 import { ViewlistsComponent } from './wishlist/viewlists/viewlists.component';
+import { MylistsComponent } from './wishlist/mylists/mylists.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { ViewlistsComponent } from './wishlist/viewlists/viewlists.component';
     DMCAComponent,
     LogIssuesComponent,
     MakelistComponent,
-    ViewlistsComponent
+    ViewlistsComponent,
+    MylistsComponent
   ],
   imports: [
     BrowserModule,
