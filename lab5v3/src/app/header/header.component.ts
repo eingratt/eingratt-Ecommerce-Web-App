@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
 import { ReviewService } from '../shared/review.service';
 import { PolicyService } from '../policies/policy.service';
+import { WishlistService } from '../wishlist/wishlist.service';
 
 
 @Component({
@@ -11,7 +12,7 @@ import { PolicyService } from '../policies/policy.service';
 })
 export class HeaderComponent implements OnInit {
   
-  constructor(private authService: AuthService, private reviewService: ReviewService, private policyService: PolicyService) { }
+  constructor(private authService: AuthService, private reviewService: ReviewService, private policyService: PolicyService, private wishlistservice: WishlistService) { }
   
 
   ngOnInit() {
@@ -19,6 +20,8 @@ export class HeaderComponent implements OnInit {
     this.reviewService.getReviews();
     this.policyService.getLogs();
     this.authService.getEmails();
+    this.wishlistservice.getLists();
+    this.wishlistservice.getItems();
   }
   
   onLogout(){

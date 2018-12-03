@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { Recipe } from '../../recipes/recipe.model';
 import { RecipeService } from '../../recipes/recipe.service';
 import { AuthService } from '../../auth/auth.service';
+import { WishlistService } from '../wishlist.service'; 
 
 @Component({
   selector: 'app-makelist',
@@ -18,15 +19,18 @@ export class MakelistComponent implements OnInit, OnDestroy {
   
   wishForm: FormGroup;
   newList: boolean = false;
-  itemsinList: Recipe[]=[]
+  itemsinList: any;
+  
 
   constructor(private recipeService: RecipeService, 
-  private authService: AuthService, private router: Router) {
+  private authService: AuthService, private router: Router,
+  private wishlistservice: WishlistService) {
 
   }
   
 
   ngOnInit() {
+    this.itemsinList =[];
     this.initForm();
     this.subscritption = this.recipeService.recipesChanged
       .subscribe(
@@ -39,24 +43,24 @@ export class MakelistComponent implements OnInit, OnDestroy {
   
   private initForm(){
     this.wishForm = new FormGroup({
-      'amount': new FormControl(null, [Validators.required,
-            Validators.pattern(/^[1-9]+[0-9]*$/)
-            ])
+      'name': new FormControl(null, Validators.required),
+      'description': new FormControl(null, Validators.required)
     });
     
   }
   
-  onNewRecipe(){
-    //this.router.navigate(['new'], {relativeTo: this.route});
-  }
-  
+  // save everything to database
   onNewList(){
     this.router.navigate([''])
-    //post to wishlist
+    console.log("Read me " + this.wishForm.value)
+    this.wishlistservice.addList(this.wishForm.value,this.newList);
+    for (var i in this.itemsinList){
+      this.wishlistservice.addItem(this.itemsinList[i], this.wishForm.value);
+    }
   }
   
-  addToList(index, i){
-    //post to items in wishlist
+  addToList(amount, i){
+    this.itemsinList.push({amount: amount, itemName: this.recipes[i].name});
   }
   
   changeState(){
@@ -65,6 +69,10 @@ export class MakelistComponent implements OnInit, OnDestroy {
   
   ngOnDestroy(){
     this.subscritption.unsubscribe();
+  }
+  
+  onCancel(){
+    this.router.navigate(['']);
   }
 
 }

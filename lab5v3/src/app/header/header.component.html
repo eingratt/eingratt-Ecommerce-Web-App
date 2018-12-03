@@ -19,8 +19,8 @@
         <ul class="nav navbar-nav navbar-right">
             <li routerLinkActive="active"><a routerLink="/about">About Us</a></li>
             <ng-template [ngIf]="!authService.isAuthenticated()">
-                <li><a routerLink="/signup">Register</a></li>
-                <li><a routerLink="/signin">Login</a></li>
+                <li routerLinkActive="active"><a routerLink="/signup">Register</a></li>
+                <li routerLinkActive="active"><a routerLink="/signin">Login</a></li>
             </ng-template>
             <li><a style="cursor: pointer;" (click)="onLogout()" *ngIf="authService.isAuthenticated()">Logout</a></li>
             <li class="dropdown" appDropdown>

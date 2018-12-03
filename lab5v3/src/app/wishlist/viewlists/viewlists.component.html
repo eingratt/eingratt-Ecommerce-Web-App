@@ -1,3 +1,20 @@
-<p>
-  viewlists works!
-</p>
+<div class="row">Your Wish Lists:
+    <div class="col-xs-12">
+        <ul class= "list-group">
+            <ng-container *ngFor="let wishlist of wishlists; let i = index">
+                <li class="list-group-item" *ngIf="wishlist.isPublic">
+                    
+                   {{ wishlist.name }} - Description: {{ wishlist.description }}
+                   <br>
+                   <hr>
+                   Items:
+                   
+                    <ng-container *ngFor="let item of wishlistitems; let i = index">
+                        <li class="list-group-item" *ngIf="item.listName == wishlist.name"> {{ item.itemName }} - Amount: {{ item.amount }}</li>
+                        
+                     </ng-container>
+                </li>
+             </ng-container>
+        </ul>
+    </div>
+</div>

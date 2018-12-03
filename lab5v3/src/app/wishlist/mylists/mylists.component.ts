@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../../auth/auth.service';
+import { WishlistService } from '../wishlist.service'; 
 
 @Component({
   selector: 'app-mylists',
@@ -7,9 +9,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MylistsComponent implements OnInit {
 
-  constructor() { }
+  wishlists: any = [];
+  wishlistitems: any = [];
+  userEmail: string = null;
+  
+  constructor(private wishlistservice: WishlistService, private authService: AuthService) { }
 
   ngOnInit() {
+    this.wishlists = [];
+    this.wishlistitems = [];
+    this.userEmail = this.authService.currentEmail;
+    this.wishlistservice.getLists();
+    this.wishlistservice.getItems();
+    this.wishlists = this.wishlists.concat(this.wishlistservice.wishlists);
+    this.wishlistitems = this.wishlistitems.concat(this.wishlistservice.wishlistitems);
+
   }
+  
+  
 
 }

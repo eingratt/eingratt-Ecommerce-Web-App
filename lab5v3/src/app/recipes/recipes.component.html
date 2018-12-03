@@ -1,5 +1,15 @@
 <div class="row">
     <div class="col-md-5">
+        <ng-container *ngIf="!authService.isAuthenticated()">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2><small>Hello new user: </small></h2>
+                <h3><small>Welcome to my virtual store webpag</small></h3>
+                <p><small>Assuming everything works well, this webpage will allow authenticated users to add products to their shopping list, make custom collections, and post comments for each product.</small></p>
+                <p><small class="bold" >Please login or register an account to explore these features.</small></p>
+            </div>
+        </div>
+        </ng-container>
         <app-recipe-list></app-recipe-list>        
     </div>
     <div class="col-md-7">

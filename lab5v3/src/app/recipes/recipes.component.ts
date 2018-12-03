@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RecipeService } from './recipe.service';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-recipes',
@@ -8,7 +9,7 @@ import { RecipeService } from './recipe.service';
 })
 export class RecipesComponent implements OnInit {
 
-  constructor(private recipeService: RecipeService) {
+  constructor(private recipeService: RecipeService, private authService: AuthService) {
     
   }
 

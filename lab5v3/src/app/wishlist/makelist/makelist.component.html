@@ -1,12 +1,46 @@
 <div class="row">
     <div class="col-xs-12">
         <ng-container *ngIf="authService.isAuthenticated()">
-        <button (click)="onNewList()" class="btn btn-success">Save Wishlist</button>
+        <form [formGroup]="wishForm" (ngSubmit)="onNewList()">
+        <div class="row" style="margin-top: 10px;">
+            <div class="col-xs-8">
+                <label for="name">Wishlist Name:</label>
+                <input type="text" class="form-control" formControlName="name">
+            </div>
+            <div class="col-xs-8">
+                <label for="description">Description:</label>
+                <input type="text" class="form-control" formControlName="description">
+            </div>
+            <div class="col-xs-2">
+                <button type="button" class="btn btn-danger" (click)="onCancel()">Cancel</button>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-xs-12">
+                <button [disabled]="!wishForm.valid" type="submit" class="btn btn-success">Save Wishlist</button>
+            </div>
+        </div>
+        </form>
+        
         <button class="btn btn-primary" *ngIf="newList" (click) = changeState()>Make Private</button>
         <button class="btn btn-danger" *ngIf="!newList" (click) = changeState()>Make Public</button>
         </ng-container>
     </div>
 </div>
+<hr>
+<div class="row">
+    <div class="col-xs-12">
+       <ng-container *ngFor="let item of itemsinList; let i = index">
+           <div style="cursor: pointer;" class="list-group-item clearfix">
+            <div class="pull-left">
+            <h4 class="list-group-item-heading">{{item.itemName}}  - Amount: {{item.amount}}</h4>
+            </div>
+        </div>
+       </ng-container> 
+    </div>
+</div>
+
 <hr>
 <div class="row">
     <div class="col-xs-12">
