@@ -4,7 +4,7 @@
             <ng-container *ngFor="let wishlist of wishlists; let i = index">
                 <li class="list-group-item" *ngIf="wishlist.isPublic">
                     
-                   {{ wishlist.name }} - Description: {{ wishlist.description }}
+                   {{ wishlist.name }} - Description: {{ wishlist.description }} - By: {{ wishlist.userEmail }}
                    <br>
                    <hr>
                    Items:

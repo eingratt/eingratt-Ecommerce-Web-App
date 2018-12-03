@@ -57,6 +57,8 @@ export class MakelistComponent implements OnInit, OnDestroy {
     for (var i in this.itemsinList){
       this.wishlistservice.addItem(this.itemsinList[i], this.wishForm.value);
     }
+    this.wishlistservice.getLists();
+    this.wishlistservice.getItems();
   }
   
   addToList(amount, i){
